@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+header{
+    width: 100%;
+    text-align: center;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: url("/static/img/HomepageIMG1.png");
+    background-size: cover;
+}
+header h1{
+    margin: 10px auto;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 3rem;
+}
+header h4{
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 1.5rem;
+}
+.container{
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: 0 auto;
+}
+.form-shipping{
+    width: 55%;
+    margin: 20px;
+}
+.container form{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+}
+.container form h2{
+    margin: 10px;
+    font-size: 1.2rem;
+}
+.credentials{
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem;
+}
+.forms{
+    display: flex;
+    flex-direction: column;
+}
+form{
+    width: 70%;
+    height: 90%;
+}
+form hr{
+    width: 90%;
+    height: 4px;
+    margin: 0 auto;
+    background-color: black;
+}
+.shipping h4{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1.2rem;
+}
+.forms label{
+    font-size: 1rem;
+    font-weight: bold;
+    margin:1rem 0;
+}
+.forms input{
+    width: 270px;
+    height: 30px;
+    outline: none;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+form input[type=submit]{
+    width: 50%;
+    height: 40px;
+    font-size: 1.4rem;
+    display: block;
+    margin: 3rem auto;
+    font-family: "Montserrat";
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+form input[type=submit]:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    transition: all .4s ease-in-out;
+}
+.summary{
+    margin: 5px;
+    width: 40%;
+    height: 50%;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+}
+.cart{
+    padding: 20px 20px;
+}
+.cart a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+.cart a:hover{
+    font-weight: bold;
+    transition: all .2s ease-out;
+}
+.summary hr{
+    width: 90%;
+    margin: auto;
+    height: 5px;
+    background-color: black;
+}
+.card h2{
+    font-size: 1.2rem;
+    margin: 20px 10px;
+}
+.order{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px auto;
+}
+.order li{
+    list-style: none;
+}
+.order h4{
+    font-size: 1rem;
+    font-weight: bold;
+}
+.order li img{
+    width: 70px;
+    height: 100px;
+    display: block;
+    background-color: rgb(255, 216, 216);
+}
+.totals{
+    margin: 40px 20px;
+}
+.totals h3{
+    font-size: 1.2rem;
+    
+}
+.payment-option{
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    margin-top: 30px;
+    padding-left: 10px;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+}
+.payment-option button{
+    width: 200px;
+    height: 40px;
+    
+    color: rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: solid 2px black;
+    outline: none;
+    margin-left: 40px;
+    cursor: pointer;
+}
+.payment-option button:hover{
+    background-color: black;
+    color: white;
+    transition: all .4s ease-in-out;
+}
+.hidden{
+    display: none !important;
+   
+}
