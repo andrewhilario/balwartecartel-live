@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="icon" href="{% static 'img/Logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+</head>
+<body>
+    <header>
+        <h4>balwarte cartel</h4>
+        <h1>Checkout</h1>
+    </header>
+</body>
+    <div class="container">
+        <div class="form-shipping">
+            <form id="form">
+                <h2>Customer Info</h2>
+                <div class="credentials" id="user-info">
+                    <div class="forms">
+                        <label for="fname">Full Name</label>
+                        <input type="text" name="fname" id="">
+                    </div>
+                    <div class="forms">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="">
+                    </div>
+                </div>
+                <hr>
+                <div class="shipping" id="shipping-info">
+                    <h4>Shipping Information</h4>
+                        <div class="credentials">
+                            <div class="forms">
+                                <label for="address">Address</label>
+                                <input type="text" name="address" id="address">
+                            </div>
+                            <div class="forms">
+                                <label for="city">City</label>
+                                <input type="text" name="city" id="city">
+                            </div>
+                        </div>
+                        <div class="credentials">
+                            <div class="forms">
+                                <label for="province">Province or Region</label>
+                                <input type="text" name="province" id="province">
+                            </div>
+                            <div class="forms">
+                                <label for="zipcode">Zip Code</label>
+                                <input type="text" name="zipcode" id="zipcode">
+                            </div>
+                        </div>
+                        <input type="submit" value="Continue" id="form-button">
+                </div>
+            </form>
+            <div class="payment-option hidden" id="payment">
+                <h3>Payment Option</h3>
+                <button id="make-payment">Make Payment</button>
+            </div>
+        </div>
+        <div class="summary">
+            <div class="cart">
+                <a href="cart">Back to Cart</a>
+            </div>
+            <hr>
+            <div class="card">
+                <h2>Order Summary</h2>
+               
+                <div class="total">
+                    {% for item in items %}
+                        <ul class="order">
+                            <li>
+                                <img src="{{item.product.imageURL}}" alt="product">
+                            </li>
+                            <li>
+                                <h4>{{item.product.name}}</h4>
+                            </li>
+                            <li>
+                                <h4>₱{{item.get_total|floatformat:2}}</h4>
+                            </li>
+                            <li>
+                                <h4>x{{item.quantity}}</h4>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                    <hr>
+                    <div class="totals">
+                        <h3>Items: {{order.get_cart_items}}</h3>
+                        <h3>Total: ₱{{order.get_cart_total|floatformat:2}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+         function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(
+                  cookie.substring(name.length + 1)
+                );
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getToken("csrftoken");
+
+
+
+        var shipping = "{{order.shipping}}"
+        var user = "{{request.user}}";
+        var total = "{{order.get_cart_total|floatformat:2}}"
+
+
+        if (shipping == 'False'){  
+            document.getElementById('shipping-info').innerHTML = '';
+        }
+        if(user != 'AnonymousUser'){
+            document.getElementById('user-info').innerHTML = ''
+        }
+        if(shipping == 'False' && user != 'AnonymousUser'){
+            document.getElementById('form').classList.add('hidden')
+            document.getElementById('payment').classList.remove('hidden')
+        }
+        var form = document.getElementById('form')
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault()
+            console.log('Form Submitted...')
+
+            document.getElementById('form-button').classList.add('hidden')
+            document.getElementById('payment').classList.remove('hidden')
+        })
+        
+        document.getElementById('make-payment').addEventListener('click', function(e){
+            Swal.fire(
+                    'Payment Received',
+                    'Thank you so much!',
+                    'success'
+            ).then((result) => {
+                    if(result.isConfirmed) {
+                        submitFormatData()
+                    }
+                } 
+            )
+        })
+
+        function submitFormatData(){
+            console.log('Payment button click...')
+
+            var userFormData = {
+                'name':null,
+                'email':null,
+                'total':total
+            }
+            var shippingInfo = {
+                'address':null,
+                'city':null,
+                'province':null,
+                'zipcode':null,
+            }
+            var address = document.getElementById('address')
+            var city = document.getElementById('city')
+            var province = document.getElementById('province')
+            var zipcode = document.getElementById('zipcode')
+
+            if(shipping != 'False'){
+                shippingInfo.address = address.value
+                shippingInfo.city = city.value
+                shippingInfo.province = province.value
+                shippingInfo.zipcode = zipcode.value
+            }
+            if(user == 'AnonymousUser'){
+                userFormData.name = form.fname.value
+                userFormData.email = form.email.value
+            }
+            var url = '/process-order'
+        // console.log('URL: ', url)
+
+            fetch(url, {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({'form': userFormData,'shipping': shippingInfo})
+            }).then((response) => response.json())
+            .then((data)=>{
+                console.log('Data: ', data)
+
+                window.location.href = ''
+            })
+        }
+        
+    </script>
+</html>

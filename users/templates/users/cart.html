@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="icon" href="{% static 'img/Logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    
+</head>
+<body>
+    <header>
+        <h4>balwarte cartel</h4>
+        <h1>Shopping Cart</h1>
+    </header>
+    <div class="container">
+        {% for item in items %}
+            <div class="right">
+                <div class="card">
+                    <img src="{{ item.product.imageURL }}" alt="">
+                </div>
+                <div class="card">
+                    <p>{{item.product.name}}</p>
+                </div>
+                <div class="card">
+                    <input data-product="{{item.product.id}}" data-action="remove" type="button" class="update-cart" value="-">
+                    <input type="text" value="{{item.quantity}}">
+                    <input data-product="{{item.product.id}}" data-action="add" type="button" class="update-cart" value="+">
+                </div>
+                <div class="card">
+                    <h3>₱{{item.get_total|floatformat:2}}</h3>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="left">
+            <h3>Order Summary </h3>
+            <ul>
+                <li>
+                    <h4>Total Items</h4>
+                    <h4>{{order.get_cart_items}}</h4>
+                </li>
+                <li>
+                    <h4>Total</h4>
+                    <h4>₱{{order.get_cart_total|floatformat:2}}</h4>
+                </li>
+                <!-- <li>
+                    <h4>Shipping</h4>
+                    <select name="shipping" id="">
+                        <option value="cod">Cash On Delivery</option>
+                        <option value="pick">Pick Up</option>
+                        <option value="dnd">Door to Door</option>
+                    </select>
+                </li> -->
+            </ul>
+            
+            <a href="checkout">Checkout</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/cart.js' %}"></script>
+    <script type="text/javascript">
+        var user = "{{request.user}}";
+  
+        function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(
+                  cookie.substring(name.length + 1)
+                );
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getToken("csrftoken");
+      </script>
+      
+</body>
+</html>

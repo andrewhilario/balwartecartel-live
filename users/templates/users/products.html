@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Balwarte Cartel</title>
+    <link rel="icon" href="{% static 'img/Logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+</head>
+<body> -->
+    {% include 'users/navbar.html'%}
+    <!-- <h6 class="cart-number">{{ cartitems }}</h6> -->
+
+    <div class="products">
+        {% for product in products %}
+        <div class="tshirts">
+            <img src="{{ product.imageURL }}" alt="">
+            <h2>{{product.name}}</h2>
+            <h2>₱{{product.price|floatformat:2}}</h2>
+            <button data-product="{{product.id}}" data-action="add" class="update-cart">Add to Cart</button>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+    
+ <script src="{% static 'js/navbar.js' %}"></script>
+     <script src="{% static 'js/cart.js' %}"></script>
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+
+      function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken("csrftoken");
+    </script>
+    
+   
+</html>

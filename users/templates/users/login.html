@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/Logo.png' %}">
+    <title>Login | Balwarte Cartel</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+    <section>
+        <div class="rightSide" >
+            <h1>Balwarte</h1>
+            <h1>Cartel</h1>
+        </div>
+        <div class="leftSide">
+            <form action="" method="POST">
+                
+                {% csrf_token %}
+
+                <label for="name">Username</label><br>
+                <input type="text" name="username" value=" " required><br>
+                <label for="password">Password</label><br>
+                <input type="password" name="password" value="" required><br>
+                <input type="submit" value="Login">
+                <div class="rmb">
+                    <input type="checkbox" name="" id="">
+                    <p>Remember Me</p>
+                </div>
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="text-align: center; font-size: 15px; font-weight: bold;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <div class="underForm">
+                <a href="forgot-password">Forgot your Password?</a>
+                <a href="register">Register</a>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>

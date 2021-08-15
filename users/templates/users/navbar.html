@@ -1,0 +1,25 @@
+{% load static %}
+
+<nav id="nav">
+    <div class="logo">
+        <img src="{% static 'img/Logo2.png' %}">
+    </div>
+    
+    <div class="navLinks">
+        <ul class="navLink">
+            <li><a href="/">HOME</a> </li>
+            <li><a href="products">PRODUCTS</a> </li>
+            <li><a href="/#abt">ABOUT</a> </li>
+            <li><a href="/#contact">CONTACT US</a> </li>
+            <li><p>Hello, {{request.user}}</p></li>
+            <li><a href="logout">LOGOUT</a></li>
+           
+            <li><a href="cart"><i class="fas fa-shopping-bag fa-2x"><h6 class="cart-number">{{ cartitems }}</h6></i></a></li>
+        </ul>
+    </div>
+    <div class="burger">
+        <div class="lines1"></div>
+        <div class="lines2"></div>
+        <div class="lines3"></div>
+    </div>
+</nav>

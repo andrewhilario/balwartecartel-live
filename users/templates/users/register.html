@@ -1,0 +1,56 @@
+{% load static %}
+
+{% if error_message %}
+    <strong>{{ error_message }}</strong>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/Logo.png' %}">
+    <title>Register | Balwarte Cartel</title>
+    <link rel="stylesheet" href="{% static 'css/register.css'%}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> Register </h1>
+        </div>
+        <div class="form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="forms">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="">
+                </div>
+                <div class="forms">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="">
+                </div>
+                <div class="forms">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="">
+                </div>
+                
+                <!-- <div class="forms">
+                    {{form.password2.label}}
+                    {{form.password2}}
+                </div> -->
+
+                <div class="btns">
+                    <input type="submit" value="Register" id="reg"></input>
+                    <a href="login">Login</a>
+                </div>
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="text-align: center; margin-top: 40px; font-size: 18px; font-weight: bold; color: red;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
