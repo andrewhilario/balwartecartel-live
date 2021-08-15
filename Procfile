@@ -1,0 +1,1 @@
+web: gunicorn balwartecartel.wsgi --log-file -
